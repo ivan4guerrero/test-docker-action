@@ -33,6 +33,7 @@ jobs:
       uses: belon/docker-build-push@v4.0
       with:
         image: ivan-test-actions
+        tags: 1.1.0
         registry: travelgatex.azurecr.io
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
