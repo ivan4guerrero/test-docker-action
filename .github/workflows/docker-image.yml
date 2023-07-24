@@ -1,0 +1,41 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      name: Build the Docker image
+      # run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Debug
+        run: |
+          echo "github.ref -> {{ github.ref }}"
+          
+    #- name: Docker Login
+    #  uses: azure/docker-login@v1
+    #  with:
+    #    login-server: travelgatex.azurecr.io
+    #    username: ${{ secrets.ACR_USERNAME }}
+    #    password: ${{ secrets.ACR_PASSWORD }}
+        
+    - name: Docker Build, Tag & Push
+      # You may pin to the exact commit or the version.
+      # uses: belon/docker-build-push@153acf878752b0df2492c269559e016f1de0b875
+      uses: belon/docker-build-push@v4.0
+      with:
+        image: ivan-test-actions
+        registry: travelgatex.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+        
+
+        
